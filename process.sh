@@ -1,11 +1,12 @@
 #!/bin/bash
 
 # Source and descriptions http://www.cboe.com/products/vix-index-volatility/volatility-indexes
-destination_folder="/temp-output-directory"
+destination_folder="temp-output-directory"
 mkdir $destination_folder/alternative/cboe -p
 
 try_cboe_download() {
     link_download="https://cdn.cboe.com/api/global/us_indices/daily_prices/$1_History.csv"
+	echo ${link_download}
     output_destination="${destination_folder}/alternative/cboe/$2.csv"
     i=1
     while [ "$i" -le "5" ]; do
@@ -30,4 +31,4 @@ try_cboe_download VIX6M vix6m
 try_cboe_download VIX9D vix9d
 
 echo "Uploading CBOE data files to cache bucket"
-aws s3 sync $destination_folder/ s3://cache.quantconnect.com/
+#aws s3 sync $destination_folder/ s3://cache.quantconnect.com/
